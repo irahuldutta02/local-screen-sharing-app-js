@@ -35,5 +35,21 @@ stopButton.addEventListener("click", () => {
 });
 
 fullscreenButton.addEventListener("click", () => {
-  window.requestFullScreen();
+  // Toggle fullscreen mode within the browser window
+  if (!document.fullscreenElement) {
+    if (localVideo.requestFullscreen) {
+      localVideo.requestFullscreen();
+    } else if (localVideo.mozRequestFullScreen) {
+      /* Firefox */
+      localVideo.mozRequestFullScreen();
+    } else if (localVideo.webkitRequestFullscreen) {
+      /* Chrome, Safari and Opera */
+      localVideo.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    } else if (localVideo.msRequestFullscreen) {
+      /* IE/Edge */
+      localVideo.msRequestFullscreen();
+    }
+  } else {
+    document.exitFullscreen();
+  }
 });
